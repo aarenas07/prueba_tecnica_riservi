@@ -1,0 +1,145 @@
+<template>
+	<div id="contenedor">
+	  <div class="bloque1">
+		<p>Este es el Bloque 1 dentro del contenedor.</p>
+	  </div>
+  
+	  <div class="bloque2">
+		<p>
+		  Este es el contenido del Bloque 2 dentro del contenedor, este contiene mas texto, por eso
+		  debe ser mas largo.
+		</p>
+	  </div>
+	  <div class="clear"></div>
+	</div>
+  
+	<div class="bloque1">
+	  <p>Este es el Bloque 1 fuera del contenedor.</p>
+	</div>
+  
+	<div class="bloque2">
+	  <p>Este es el Bloque 2 fuera del contenedor.</p>
+	</div>
+  
+	<div class="v-container">
+	  <div
+		v-for="(item, index) in myArray"
+		:key="item.id"
+		:style="{
+		  backgroundColor: index % 2 !== 0 ? '#e6e6e6' : 'transparent',
+		  display: index % 2 === 0 ? 'none' : 'block',
+		}"
+	  >
+		<p>Nombre:{{ item.name }}, Roles: {{ item.roles.join(', ') }}</p>
+	  </div>
+	</div>
+  
+	<div class="btn" @click="updateOutput">Generar</div>
+	<div class="output">{{ output }}</div>
+  </template>
+  <script>
+  export default {
+	name: 'SupportView',
+	data() {
+	  return {
+		myArray: [
+		  { id: 1, name: 'Juan', roles: [1, 2] },
+		  { id: 2, name: 'Maria', roles: [2, 3] },
+		  { id: 3, name: 'Elisa', roles: [4, 2] },
+		  { id: 4, name: 'Sebastian', roles: [1, 4] },
+		  { id: 5, name: 'Sara', roles: [2, 4] },
+		],
+		output: '',
+	  }
+	},
+	computed: {
+	  total() {
+		console.log('Calculando', this.myArray.length)
+		return this.myArray.length
+	  },
+	},
+	methods: {
+	  updateOutput() {
+		console.log('Metodo updateOutput ejecutado')
+		this.output = `El total del listado: ${this.total}`
+		console.log('Output actualizado', this.output)
+	  },
+	},
+  }
+  </script>
+  <style type="text/css">
+  .btn {
+	color: black;
+	cursor: pointer;
+  }
+  
+  .clear {
+	clear: both;
+  }
+  
+  body {
+	text-align: center;
+  }
+  
+  #contenedor {
+	width: 600px;
+	margin: 0 auto;
+	padding: 10px;
+	margin-bottom: 10px;
+	border: 1px dashed gray;
+  }
+  
+  #contenedor .bloque1,
+  #contenedor .bloque2 {
+	float: left;
+	margin: 5px;
+  }
+  
+  #contenedor .bloque1 {
+	width: 100px;
+  }
+  
+  .bloque1,
+  .bloque2 {
+	clear: both;
+  }
+  
+  .bloque1 {
+	background-color: red;
+	color: white;
+  }
+  
+  .bloque2 {
+	background-color: yellow;
+	color: black;
+	font-weight: bold;
+  }
+  
+  #contenedor .bloque1 p {
+	font-style: italic;
+  }
+  
+  .bloque2 p {
+	font-weight: bold;
+  }
+  
+  p {
+	padding: 10px;
+	color: #000;
+  }
+  
+  .v-container div {
+	padding: 10px;
+	margin: 5px;
+	border: 1px solid #ccc;
+  }
+  
+  .output {
+	padding: 10px;
+	margin: 5px;
+	background-color: #f0f0f0;
+	border: 1px solid #ccc;
+	color: black;
+  }
+  </style>
+  
